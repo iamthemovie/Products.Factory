@@ -22,6 +22,20 @@ It's the professional, paid workspace within SolarEdge ONE for operating, analys
 
 **Common context:** These users manage fleets across multiple regions, multiple installers/sub-accounts, and multiple hardware vendors (SolarEdge and non-SolarEdge).
 
+## Workspace Model
+
+ONE Pro is **workspace-driven**. This is a key architectural difference from the free tier of SolarEdge ONE.
+
+| Concept | Description |
+|---------|-------------|
+| **Workspace** | Org-specific container — each organisation (O&M provider, asset owner, installer) has their own workspace |
+| **Users** | Belong to a workspace, with workspace-specific permissions |
+| **Sites** | Can exist in multiple workspaces — O&M provider, asset owner, and installer might all have the same site |
+| **Data ownership** | Logs, comments, and operational data belong to the workspace that created them |
+| **Cross-workspace sharing** | Data can be selectively published to other workspaces that have the same site |
+
+This differs from **SolarEdge ONE (free tier)**, which is installer-driven with no workspace concept — installers own the site, and owners may be granted limited access.
+
 ## What OnePro Is
 
 - A professional O&M workspace, not a consumer or installer setup tool

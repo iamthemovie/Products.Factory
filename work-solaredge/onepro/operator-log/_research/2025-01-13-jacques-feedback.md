@@ -32,6 +32,28 @@ Additional context:
 
 ---
 
+## Clarification Needed (@Clarifier)
+
+| Item | What's unclear | Follow-up question | Priority | Status |
+|------|----------------|-------------------|----------|--------|
+| "Go app" | Which app? What context? | "When you say Go, do you mean a specific SolarEdge app?" | Critical | **Answered** |
+| "Communication Restored" | Hardware comms? Network? | "What does Communication Restored mean technically?" | Critical | **Answered** |
+| "Cross-workspace publishing" | How does this differ from customer visibility? | "Who should see published logs — just O&M, or asset owners too?" | Critical | **Answered** |
+| "Official maintenance - half a year" | Where do schedules come from? | "Is the 6-month battery check-up SolarEdge-mandated or customer-specific?" | Nice-to-have | **Answered** |
+
+---
+
+## Clarification Answers
+
+| Question | Answer | Date |
+|----------|--------|------|
+| What's the "Go" app? | **SolarEdge GO** — the Installer mobile app for O&M. Separate from ONE Pro. | 2025-01-13 |
+| What does "Communication Restored" mean? | Inverter-to-cloud connection restored. Devices connect via cellular/network; cloud detects when they go offline (power, cellular, hardware) and when they come back. | 2025-01-13 |
+| Cross-workspace publishing vs customer visibility? | **ONE Pro is workspace-driven.** Each org (O&M, asset owner, installer) has their own workspace. Same site can exist in multiple workspaces. Logs are workspace-scoped by default. "Publishing across workspaces" = sharing with OTHER workspaces that have the site. Customer visibility = asset owner or any party with the site in their workspace. | 2025-01-13 |
+| Where do official maintenance schedules come from? | **SolarEdge-mandated** (for warranty/support). Customer SLA and industry standards are viable future options. | 2025-01-13 |
+
+---
+
 ## Analysis (@Scoper)
 
 ### Validated assumptions
