@@ -18,7 +18,7 @@ This scope covers creating, viewing, and listing log entries with photo attachme
 ## Context Applied
 
 - **Philosophy:** Clarity over complexity. Must be operationally useful, not just a data capture form.
-- **Key constraint:** Field technicians have ~90 seconds, often poor connectivity, hands may be occupied.
+- **Key constraint:** Field technicians have ~90 seconds, hands may be occupied. Online connection required.
 - **Success metric:** Adoption. If nobody logs, nothing else matters.
 
 ---
@@ -63,15 +63,6 @@ This scope covers creating, viewing, and listing log entries with photo attachme
 | **4.3** | List supports pagination/infinite scroll | Initial load: 20 entries. Load more on scroll. |
 | **4.4** | Empty state is clear | "No log entries yet. Add the first one." with CTA button. |
 
-### 5. Offline Support
-
-| ID | Requirement | Acceptance Criteria |
-|----|-------------|---------------------|
-| **5.1** | Entry creation works offline | Entry + photos saved locally if no connection |
-| **5.2** | Offline entries sync when online | Auto-sync with visual indicator. No user action required. |
-| **5.3** | Offline entries marked pending | User sees "Pending sync" badge until confirmed |
-| **5.4** | Sync failure handled gracefully | Retry automatically. Surface error only after 3 failures. Allow manual retry. |
-
 ---
 
 ## SHOULD HAVE (v1.1, not MVP)
@@ -106,8 +97,8 @@ This scope covers creating, viewing, and listing log entries with photo attachme
 | Site data model | Assumed exists | No |
 | User authentication & identity | Assumed exists | No |
 | File storage (photo uploads) | Needs confirmation | **Yes — confirm infra** |
-| Offline storage mechanism | Needs confirmation | **Yes — confirm approach** |
 | Mobile app exists | Assumed yes | No |
+| Network connectivity | Required | Online-only feature |
 
 ---
 
@@ -116,7 +107,7 @@ This scope covers creating, viewing, and listing log entries with photo attachme
 | Risk | Likelihood | Impact | Mitigation |
 |------|------------|--------|------------|
 | Nobody uses it | High | Fatal | Measure adoption weekly. Kill or pivot fast if flat. |
-| Photo upload fails on poor connection | Medium | High | Offline-first architecture. Compression. Background sync. |
+| Photo upload fails on slow connection | Medium | Medium | Compression. Progress indicator. Retry on failure. |
 | Entries too low-quality to be useful | Medium | Medium | Review samples early. Consider prompts/templates in v1.1 if needed. |
 | Storage costs scale unexpectedly | Low | Medium | Set image size limits. Monitor early. |
 
@@ -127,15 +118,14 @@ This scope covers creating, viewing, and listing log entries with photo attachme
 | # | Question | Who can answer? | Source |
 |---|----------|-----------------|--------|
 | **Q1** | What's the max storage per site/workspace for attachments? | Infra / Product | Scoping |
-| **Q2** | Is there an existing offline sync pattern in the app, or net-new? | Engineering | Scoping |
-| **Q3** | What's the data retention policy for log entries? Forever? | Legal / Product | Scoping |
-| **Q4** | Will this be mobile-only MVP or also web? | Product | Scoping |
-| **Q5** | Is there an existing image upload service or do we build new? | Engineering | Scoping |
-| **Q6** | Should entry types be required, optional, or inferred post-creation? | Product | Jacques |
-| **Q7** | Is cross-workspace visibility same as customer-visibility, or separate permission model? | Product | Jacques |
-| **Q8** | Video support: max file size/duration? Storage cost implications? | Infra / Product | Jacques |
-| **Q9** | Is maintenance scheduling (battery check-up every 6mo) Operator Log or separate module? | Product | Jacques |
-| **Q10** | Go app: in scope for ONE Pro, or separate product decision? | Product | Jacques |
+| **Q2** | What's the data retention policy for log entries? Forever? | Legal / Product | Scoping |
+| **Q3** | Will this be mobile-only MVP or also web? | Product | Scoping |
+| **Q4** | Is there an existing image upload service or do we build new? | Engineering | Scoping |
+| **Q5** | Should entry types be required, optional, or inferred post-creation? | Product | Jacques |
+| **Q6** | Is cross-workspace visibility same as customer-visibility, or separate permission model? | Product | Jacques |
+| **Q7** | Video support: max file size/duration? Storage cost implications? | Infra / Product | Jacques |
+| **Q8** | Is maintenance scheduling (battery check-up every 6mo) Operator Log or separate module? | Product | Jacques |
+| **Q9** | Go app: in scope for ONE Pro, or separate product decision? | Product | Jacques |
 
 ---
 
@@ -144,17 +134,17 @@ This scope covers creating, viewing, and listing log entries with photo attachme
 | Scenario | Steps | Expected Result |
 |----------|-------|-----------------|
 | **Happy path** | Open site → Tap "Add log" → Type note → Attach photo → Submit | Entry appears in list with photo |
-| **Offline create** | Turn off wifi → Create entry with photo → Turn on wifi | Entry syncs automatically, pending badge clears |
 | **View history** | Open site with 50 entries → Scroll list | Loads 20, infinite scroll loads more |
 | **Photo capture** | Tap camera icon → Take photo → Confirm | Photo appears as thumbnail in form |
+| **Empty state** | Open site with no entries | Shows "No log entries yet" with CTA |
 
 ---
 
 ## Recommendation
 
-**Answer Q1-Q5 first.** Then this is ready for engineering estimation.
+**Answer Q1-Q4 first.** Then this is ready for engineering estimation.
 
-MVP is deliberately minimal: text + photos + offline. That's it. Prove adoption before adding structure.
+MVP is deliberately minimal: text + photos, online-only. That's it. Prove adoption before adding structure.
 
 ---
 
@@ -170,3 +160,4 @@ MVP is deliberately minimal: text + photos + offline. That's it. Prove adoption 
 |------|-------|-------|
 | 2025-01-13 | Initial scoping | @Scoper pass. Informed by @Critic and @User_Proxy (Field Technician) feedback. |
 | 2025-01-13 | Jacques feedback | Added Q6-Q10. Entry types and video support may need reconsideration. |
+| 2025-01-13 | Removed offline support | Online-only. Removed Section 5 and related requirements. |

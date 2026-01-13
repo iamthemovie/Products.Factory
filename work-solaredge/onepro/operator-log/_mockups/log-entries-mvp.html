@@ -125,25 +125,6 @@
 
         .app-content { padding: var(--space-md); padding-bottom: 80px; }
 
-        /* Offline Banner */
-        .offline-banner {
-            background: var(--color-warning);
-            color: var(--se-grey-dark);
-            padding: var(--space-sm) var(--space-md);
-            font-size: var(--font-size-sm);
-            text-align: center;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: var(--space-sm);
-        }
-        .offline-dot {
-            width: 8px;
-            height: 8px;
-            background: var(--se-grey-dark);
-            border-radius: 50%;
-        }
-
         /* Site Header Card */
         .site-header-card {
             background: linear-gradient(135deg, var(--se-grey-dark) 0%, #404040 100%);
@@ -222,29 +203,6 @@
             height: 16px;
             background: var(--se-grey-light);
             border-radius: 2px;
-        }
-
-        /* Pending sync badge */
-        .pending-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: var(--space-xs);
-            padding: 2px 8px;
-            background: var(--color-warning);
-            color: var(--se-grey-dark);
-            border-radius: 100px;
-            font-size: var(--font-size-sm);
-        }
-        .sync-icon {
-            width: 12px;
-            height: 12px;
-            border: 2px solid currentColor;
-            border-top-color: transparent;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-        }
-        @keyframes spin {
-            to { transform: rotate(360deg); }
         }
 
         /* Empty State */
@@ -491,7 +449,7 @@
         <button class="view-btn active" onclick="showView('list')">List View</button>
         <button class="view-btn" onclick="showView('create')">Create Entry</button>
         <button class="view-btn" onclick="showView('detail')">Entry Detail</button>
-        <button class="view-btn" onclick="showView('offline')">Offline State</button>
+        <button class="view-btn" onclick="showView('empty')">Empty State</button>
     </div>
 
     <div class="app-shell">
@@ -556,15 +514,10 @@
                         </div>
                     </li>
 
-                    <!-- Pending sync entry -->
+                    <!-- Recent entry -->
                     <li class="log-item">
                         <div class="log-item-header">
                             <span class="log-item-title">Cleaned panels - Section B</span>
-                            <!-- Req 5.3: Pending sync badge -->
-                            <span class="pending-badge">
-                                <span class="sync-icon"></span>
-                                Syncing
-                            </span>
                         </div>
                         <div class="log-item-body">
                             Heavy dust buildup from nearby construction. Full clean completed.
@@ -756,88 +709,32 @@
         </div>
 
         <!-- ==========================================
-             VIEW 4: OFFLINE STATE
-             Reqs: 5.1, 5.2, 5.3, 5.4
+             VIEW 4: EMPTY STATE
+             Req: 4.4
              ========================================== -->
-        <div class="view" id="view-offline">
+        <div class="view" id="view-empty">
             <header class="app-header">
                 <div class="back-arrow"></div>
+                <!-- Req 4.4: Empty state -->
                 <h1>Operator Log</h1>
                 <div class="header-icon"></div>
             </header>
 
-            <!-- Req 5.1, 5.3: Offline indicator -->
-            <div class="offline-banner">
-                <span class="offline-dot"></span>
-                You're offline. Entries will sync when connected.
-            </div>
-
             <main class="app-content">
                 <div class="site-header-card">
-                    <div class="site-name">Warehouse District Solar</div>
-                    <div class="site-meta">Melbourne, VIC | 2.4 MW | 12 Inverters</div>
+                    <div class="site-name">New Solar Installation</div>
+                    <div class="site-meta">Sydney, NSW | 1.2 MW | 6 Inverters</div>
                 </div>
 
-                <div class="section-header">
-                    <span class="section-title">Recent Entries</span>
-                    <span class="text-sm text-muted">3 pending sync</span>
-                </div>
-
-                <ul class="log-list">
-                    <!-- Req 5.3: Pending entries marked -->
-                    <li class="log-item">
-                        <div class="log-item-header">
-                            <span class="log-item-title">Cleaned panels - Section B</span>
-                            <span class="pending-badge">Pending</span>
-                        </div>
-                        <div class="log-item-body">
-                            Heavy dust buildup from nearby construction.
-                        </div>
-                        <div class="log-item-footer">
-                            <span>You</span>
-                            <span>5 min ago</span>
-                            <span class="attachment-indicator">
-                                <span class="photo-icon"></span> 3
-                            </span>
-                        </div>
-                    </li>
-
-                    <li class="log-item">
-                        <div class="log-item-header">
-                            <span class="log-item-title">INV-04 fan noise observed</span>
-                            <span class="pending-badge">Pending</span>
-                        </div>
-                        <div class="log-item-body">
-                            Unusual whining sound from cooling fan. Flagged for follow-up.
-                        </div>
-                        <div class="log-item-footer">
-                            <span>You</span>
-                            <span>12 min ago</span>
-                        </div>
-                    </li>
-
-                    <!-- Synced entry (from cache) -->
-                    <li class="log-item">
-                        <div class="log-item-header">
-                            <span class="log-item-title">Quarterly inspection completed</span>
-                        </div>
-                        <div class="log-item-body">
-                            All inverters operational.
-                        </div>
-                        <div class="log-item-footer">
-                            <span>Marcus T.</span>
-                            <span>3 days ago</span>
-                        </div>
-                    </li>
-                </ul>
-
-                <!-- Req 5.4: Manual retry option -->
-                <div class="text-center mt-md">
-                    <button class="btn btn-secondary">Retry sync</button>
+                <!-- Req 4.4: Empty state is clear with CTA -->
+                <div class="empty-state">
+                    <div class="empty-state-icon">+</div>
+                    <h3>No log entries yet</h3>
+                    <p class="text-sm text-muted mt-md">Start documenting site activity to build an operational history.</p>
+                    <button class="btn btn-primary mt-md" onclick="showView('create')">Add first entry</button>
                 </div>
             </main>
 
-            <!-- FAB still works offline (Req 5.1) -->
             <button class="fab" onclick="showView('create')">+</button>
 
             <nav class="app-nav">
