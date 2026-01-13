@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MOCKUP: [Feature Name]</title>
+    <style>
+        /* ========================================
+           SolarEdge Brand Colors & Variables
+           ======================================== */
+        :root {
+            /* Brand colors */
+            --se-red: #E31837;
+            --se-red-dark: #C41230;
+            --se-grey-dark: #2D2D2D;
+            --se-grey-medium: #6B6B6B;
+            --se-grey-light: #E5E5E5;
+            --se-white: #FFFFFF;
+
+            /* Functional colors */
+            --color-success: #28A745;
+            --color-warning: #FFC107;
+            --color-error: #DC3545;
+            --color-info: #17A2B8;
+
+            /* Spacing */
+            --space-xs: 4px;
+            --space-sm: 8px;
+            --space-md: 16px;
+            --space-lg: 24px;
+            --space-xl: 32px;
+
+            /* Typography */
+            --font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            --font-size-sm: 12px;
+            --font-size-md: 14px;
+            --font-size-lg: 16px;
+            --font-size-xl: 20px;
+            --font-size-xxl: 24px;
+
+            /* Borders */
+            --border-radius: 8px;
+            --border-radius-sm: 4px;
+        }
+
+        /* ========================================
+           Reset & Base Styles
+           ======================================== */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-family);
+            font-size: var(--font-size-md);
+            line-height: 1.5;
+            color: var(--se-grey-dark);
+            background: var(--se-grey-light);
+            min-height: 100vh;
+        }
+
+        /* ========================================
+           Mockup Banner (required)
+           ======================================== */
+        .mockup-banner {
+            background: var(--se-red);
+            color: var(--se-white);
+            padding: var(--space-sm) var(--space-md);
+            font-size: var(--font-size-sm);
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .mockup-banner a {
+            color: var(--se-white);
+            text-decoration: underline;
+        }
+
+        /* ========================================
+           App Shell
+           ======================================== */
+        .app-shell {
+            max-width: 430px; /* Mobile viewport */
+            margin: 0 auto;
+            background: var(--se-white);
+            min-height: calc(100vh - 36px);
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
+
+        /* Header */
+        .app-header {
+            background: var(--se-grey-dark);
+            color: var(--se-white);
+            padding: var(--space-md);
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+        }
+
+        .app-header h1 {
+            font-size: var(--font-size-lg);
+            font-weight: 600;
+            flex: 1;
+        }
+
+        .header-icon {
+            width: 24px;
+            height: 24px;
+            background: var(--se-grey-medium);
+            border-radius: 50%;
+        }
+
+        /* Content area */
+        .app-content {
+            padding: var(--space-md);
+        }
+
+        /* Bottom nav */
+        .app-nav {
+            position: fixed;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            max-width: 430px;
+            background: var(--se-white);
+            border-top: 1px solid var(--se-grey-light);
+            display: flex;
+            justify-content: space-around;
+            padding: var(--space-sm) 0;
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: var(--space-xs);
+            color: var(--se-grey-medium);
+            font-size: var(--font-size-sm);
+            text-decoration: none;
+            padding: var(--space-sm);
+        }
+
+        .nav-item.active {
+            color: var(--se-red);
+        }
+
+        .nav-icon {
+            width: 24px;
+            height: 24px;
+            background: currentColor;
+            border-radius: var(--border-radius-sm);
+            opacity: 0.3;
+        }
+
+        /* ========================================
+           Common Components
+           ======================================== */
+
+        /* Buttons */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--space-sm);
+            padding: var(--space-sm) var(--space-md);
+            border-radius: var(--border-radius);
+            font-size: var(--font-size-md);
+            font-weight: 500;
+            cursor: pointer;
+            border: none;
+            transition: background 0.2s;
+        }
+
+        .btn-primary {
+            background: var(--se-red);
+            color: var(--se-white);
+        }
+
+        .btn-primary:hover {
+            background: var(--se-red-dark);
+        }
+
+        .btn-secondary {
+            background: var(--se-grey-light);
+            color: var(--se-grey-dark);
+        }
+
+        .btn-full {
+            width: 100%;
+        }
+
+        /* Cards */
+        .card {
+            background: var(--se-white);
+            border: 1px solid var(--se-grey-light);
+            border-radius: var(--border-radius);
+            padding: var(--space-md);
+            margin-bottom: var(--space-md);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--space-sm);
+        }
+
+        .card-title {
+            font-size: var(--font-size-md);
+            font-weight: 600;
+        }
+
+        .card-meta {
+            font-size: var(--font-size-sm);
+            color: var(--se-grey-medium);
+        }
+
+        /* Lists */
+        .list {
+            list-style: none;
+        }
+
+        .list-item {
+            padding: var(--space-md);
+            border-bottom: 1px solid var(--se-grey-light);
+            display: flex;
+            gap: var(--space-md);
+            align-items: flex-start;
+        }
+
+        .list-item:last-child {
+            border-bottom: none;
+        }
+
+        /* Forms */
+        .form-group {
+            margin-bottom: var(--space-md);
+        }
+
+        .form-label {
+            display: block;
+            font-size: var(--font-size-sm);
+            font-weight: 500;
+            margin-bottom: var(--space-xs);
+            color: var(--se-grey-medium);
+        }
+
+        .form-input,
+        .form-textarea,
+        .form-select {
+            width: 100%;
+            padding: var(--space-sm) var(--space-md);
+            border: 1px solid var(--se-grey-light);
+            border-radius: var(--border-radius);
+            font-size: var(--font-size-md);
+            font-family: var(--font-family);
+        }
+
+        .form-input:focus,
+        .form-textarea:focus,
+        .form-select:focus {
+            outline: none;
+            border-color: var(--se-red);
+        }
+
+        .form-textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        /* Chips / Tags */
+        .chip {
+            display: inline-flex;
+            align-items: center;
+            padding: var(--space-xs) var(--space-sm);
+            background: var(--se-grey-light);
+            border-radius: 100px;
+            font-size: var(--font-size-sm);
+            gap: var(--space-xs);
+        }
+
+        .chip-primary {
+            background: var(--se-red);
+            color: var(--se-white);
+        }
+
+        /* Status badges */
+        .badge {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 100px;
+            font-size: var(--font-size-sm);
+            font-weight: 500;
+        }
+
+        .badge-success { background: #D4EDDA; color: #155724; }
+        .badge-warning { background: #FFF3CD; color: #856404; }
+        .badge-error { background: #F8D7DA; color: #721C24; }
+        .badge-info { background: #D1ECF1; color: #0C5460; }
+
+        /* Empty state */
+        .empty-state {
+            text-align: center;
+            padding: var(--space-xl);
+            color: var(--se-grey-medium);
+        }
+
+        .empty-state-icon {
+            width: 64px;
+            height: 64px;
+            background: var(--se-grey-light);
+            border-radius: 50%;
+            margin: 0 auto var(--space-md);
+        }
+
+        /* Tabs */
+        .tabs {
+            display: flex;
+            border-bottom: 1px solid var(--se-grey-light);
+            margin-bottom: var(--space-md);
+        }
+
+        .tab {
+            padding: var(--space-sm) var(--space-md);
+            border: none;
+            background: none;
+            font-size: var(--font-size-md);
+            color: var(--se-grey-medium);
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            margin-bottom: -1px;
+        }
+
+        .tab.active {
+            color: var(--se-red);
+            border-bottom-color: var(--se-red);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* Photo thumbnails */
+        .photo-grid {
+            display: flex;
+            gap: var(--space-sm);
+            flex-wrap: wrap;
+        }
+
+        .photo-thumb {
+            width: 60px;
+            height: 60px;
+            background: var(--se-grey-light);
+            border-radius: var(--border-radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--se-grey-medium);
+            font-size: var(--font-size-sm);
+        }
+
+        .photo-thumb-add {
+            border: 2px dashed var(--se-grey-medium);
+            background: transparent;
+            cursor: pointer;
+        }
+
+        /* FAB (Floating Action Button) */
+        .fab {
+            position: fixed;
+            bottom: 80px;
+            right: calc(50% - 195px);
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background: var(--se-red);
+            color: var(--se-white);
+            border: none;
+            font-size: var(--font-size-xl);
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Modal */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 2000;
+            align-items: flex-end;
+            justify-content: center;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal {
+            background: var(--se-white);
+            border-radius: var(--border-radius) var(--border-radius) 0 0;
+            width: 100%;
+            max-width: 430px;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: var(--space-md);
+            border-bottom: 1px solid var(--se-grey-light);
+        }
+
+        .modal-title {
+            font-size: var(--font-size-lg);
+            font-weight: 600;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: var(--font-size-xl);
+            cursor: pointer;
+            color: var(--se-grey-medium);
+        }
+
+        .modal-body {
+            padding: var(--space-md);
+        }
+
+        .modal-footer {
+            padding: var(--space-md);
+            border-top: 1px solid var(--se-grey-light);
+            display: flex;
+            gap: var(--space-sm);
+        }
+
+        /* ========================================
+           Annotation Comments (for linking to reqs)
+           ======================================== */
+        /*
+           Usage: <!-- Req 1.1: Entry creation button -->
+           These comments link UI elements to requirement IDs
+           in the feature spec for traceability.
+        */
+
+        /* ========================================
+           Utilities
+           ======================================== */
+        .text-center { text-align: center; }
+        .text-muted { color: var(--se-grey-medium); }
+        .text-sm { font-size: var(--font-size-sm); }
+        .mt-md { margin-top: var(--space-md); }
+        .mb-md { margin-bottom: var(--space-md); }
+        .flex { display: flex; }
+        .flex-between { justify-content: space-between; }
+        .gap-sm { gap: var(--space-sm); }
+        .hidden { display: none; }
+
+        /* ========================================
+           Print Styles
+           ======================================== */
+        @media print {
+            .mockup-banner { position: relative; }
+            .app-nav { display: none; }
+            .fab { display: none; }
+            .app-shell { box-shadow: none; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Mockup identification banner -->
+    <div class="mockup-banner">
+        MOCKUP: [Feature Name] |
+        <a href="[path-to-feature-spec]">View Feature Spec</a> |
+        Last updated: [DATE]
+    </div>
+
+    <!-- App shell - mobile viewport simulation -->
+    <div class="app-shell">
+
+        <!-- App header -->
+        <header class="app-header">
+            <div class="header-icon"></div>
+            <h1>[Screen Title]</h1>
+            <div class="header-icon"></div>
+        </header>
+
+        <!-- Main content area -->
+        <main class="app-content">
+
+            <!--
+            ==========================================
+            YOUR MOCKUP CONTENT GOES HERE
+
+            Use the components defined above:
+            - .card for content cards
+            - .list / .list-item for lists
+            - .btn for buttons
+            - .form-group for form fields
+            - .tabs / .tab-content for tabbed views
+            - .empty-state for empty screens
+            - .modal-overlay for modals
+
+            Add <!-- Req X.X --> comments to link
+            UI elements to feature requirements.
+            ==========================================
+            -->
+
+            <div class="empty-state">
+                <div class="empty-state-icon"></div>
+                <p>Replace this with your mockup content</p>
+                <p class="text-sm text-muted mt-md">Use components from the template</p>
+            </div>
+
+        </main>
+
+        <!-- FAB example (remove if not needed) -->
+        <button class="fab" onclick="openModal('example-modal')">+</button>
+
+        <!-- Bottom navigation -->
+        <nav class="app-nav">
+            <a href="#" class="nav-item active">
+                <div class="nav-icon"></div>
+                <span>Home</span>
+            </a>
+            <a href="#" class="nav-item">
+                <div class="nav-icon"></div>
+                <span>Sites</span>
+            </a>
+            <a href="#" class="nav-item">
+                <div class="nav-icon"></div>
+                <span>Alerts</span>
+            </a>
+            <a href="#" class="nav-item">
+                <div class="nav-icon"></div>
+                <span>More</span>
+            </a>
+        </nav>
+    </div>
+
+    <!-- Modal example (duplicate and modify as needed) -->
+    <div class="modal-overlay" id="example-modal">
+        <div class="modal">
+            <div class="modal-header">
+                <h2 class="modal-title">Modal Title</h2>
+                <button class="modal-close" onclick="closeModal('example-modal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p>Modal content goes here.</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal('example-modal')">Cancel</button>
+                <button class="btn btn-primary">Confirm</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Minimal JS for interactivity -->
+    <script>
+        // Tab switching
+        function switchTab(tabId, contentId) {
+            // Deactivate all tabs and content
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+
+            // Activate selected tab and content
+            document.getElementById(tabId).classList.add('active');
+            document.getElementById(contentId).classList.add('active');
+        }
+
+        // Modal open/close
+        function openModal(modalId) {
+            document.getElementById(modalId).classList.add('active');
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+        }
+
+        // Close modal on overlay click
+        document.querySelectorAll('.modal-overlay').forEach(overlay => {
+            overlay.addEventListener('click', (e) => {
+                if (e.target === overlay) {
+                    overlay.classList.remove('active');
+                }
+            });
+        });
+
+        // Toggle element visibility
+        function toggleElement(elementId) {
+            const el = document.getElementById(elementId);
+            el.classList.toggle('hidden');
+        }
+    </script>
+</body>
+</html>

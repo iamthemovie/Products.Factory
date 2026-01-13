@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MOCKUP: Operator Log - Log Entries MVP</title>
+    <style>
+        /* SolarEdge Brand Colors & Variables */
+        :root {
+            --se-red: #E31837;
+            --se-red-dark: #C41230;
+            --se-grey-dark: #2D2D2D;
+            --se-grey-medium: #6B6B6B;
+            --se-grey-light: #E5E5E5;
+            --se-white: #FFFFFF;
+            --color-success: #28A745;
+            --color-warning: #FFC107;
+            --color-error: #DC3545;
+            --color-info: #17A2B8;
+            --space-xs: 4px;
+            --space-sm: 8px;
+            --space-md: 16px;
+            --space-lg: 24px;
+            --space-xl: 32px;
+            --font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            --font-size-sm: 12px;
+            --font-size-md: 14px;
+            --font-size-lg: 16px;
+            --font-size-xl: 20px;
+            --border-radius: 8px;
+            --border-radius-sm: 4px;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: var(--font-family);
+            font-size: var(--font-size-md);
+            line-height: 1.5;
+            color: var(--se-grey-dark);
+            background: var(--se-grey-light);
+            min-height: 100vh;
+        }
+
+        /* Mockup Banner */
+        .mockup-banner {
+            background: var(--se-red);
+            color: var(--se-white);
+            padding: var(--space-sm) var(--space-md);
+            font-size: var(--font-size-sm);
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        .mockup-banner a { color: var(--se-white); }
+
+        /* View Switcher */
+        .view-switcher {
+            background: var(--se-grey-dark);
+            padding: var(--space-sm);
+            display: flex;
+            justify-content: center;
+            gap: var(--space-sm);
+        }
+        .view-btn {
+            padding: var(--space-xs) var(--space-md);
+            background: transparent;
+            border: 1px solid var(--se-grey-medium);
+            color: var(--se-white);
+            border-radius: var(--border-radius-sm);
+            cursor: pointer;
+            font-size: var(--font-size-sm);
+        }
+        .view-btn.active {
+            background: var(--se-red);
+            border-color: var(--se-red);
+        }
+
+        /* App Shell */
+        .app-shell {
+            max-width: 430px;
+            margin: 0 auto;
+            background: var(--se-white);
+            min-height: calc(100vh - 80px);
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            position: relative;
+        }
+
+        .app-header {
+            background: var(--se-grey-dark);
+            color: var(--se-white);
+            padding: var(--space-md);
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+        }
+        .app-header h1 {
+            font-size: var(--font-size-lg);
+            font-weight: 600;
+            flex: 1;
+        }
+        .header-icon {
+            width: 24px;
+            height: 24px;
+            background: var(--se-grey-medium);
+            border-radius: 50%;
+            cursor: pointer;
+        }
+        .back-arrow {
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+        .back-arrow::before {
+            content: "";
+            border: solid var(--se-white);
+            border-width: 0 2px 2px 0;
+            padding: 4px;
+            transform: rotate(135deg);
+        }
+
+        .app-content { padding: var(--space-md); padding-bottom: 80px; }
+
+        /* Offline Banner */
+        .offline-banner {
+            background: var(--color-warning);
+            color: var(--se-grey-dark);
+            padding: var(--space-sm) var(--space-md);
+            font-size: var(--font-size-sm);
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--space-sm);
+        }
+        .offline-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--se-grey-dark);
+            border-radius: 50%;
+        }
+
+        /* Site Header Card */
+        .site-header-card {
+            background: linear-gradient(135deg, var(--se-grey-dark) 0%, #404040 100%);
+            color: var(--se-white);
+            padding: var(--space-md);
+            border-radius: var(--border-radius);
+            margin-bottom: var(--space-md);
+        }
+        .site-name {
+            font-size: var(--font-size-lg);
+            font-weight: 600;
+            margin-bottom: var(--space-xs);
+        }
+        .site-meta {
+            font-size: var(--font-size-sm);
+            opacity: 0.8;
+        }
+
+        /* Section Header */
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--space-md);
+        }
+        .section-title {
+            font-size: var(--font-size-md);
+            font-weight: 600;
+            color: var(--se-grey-medium);
+        }
+
+        /* Log Entry List */
+        .log-list { list-style: none; }
+        .log-item {
+            padding: var(--space-md);
+            border: 1px solid var(--se-grey-light);
+            border-radius: var(--border-radius);
+            margin-bottom: var(--space-sm);
+            cursor: pointer;
+            transition: border-color 0.2s;
+        }
+        .log-item:hover { border-color: var(--se-grey-medium); }
+        .log-item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: var(--space-xs);
+        }
+        .log-item-title {
+            font-weight: 500;
+            flex: 1;
+        }
+        .log-item-meta {
+            font-size: var(--font-size-sm);
+            color: var(--se-grey-medium);
+        }
+        .log-item-body {
+            font-size: var(--font-size-sm);
+            color: var(--se-grey-medium);
+            margin-bottom: var(--space-sm);
+        }
+        .log-item-footer {
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+            font-size: var(--font-size-sm);
+            color: var(--se-grey-medium);
+        }
+        .attachment-indicator {
+            display: flex;
+            align-items: center;
+            gap: var(--space-xs);
+        }
+        .photo-icon {
+            width: 16px;
+            height: 16px;
+            background: var(--se-grey-light);
+            border-radius: 2px;
+        }
+
+        /* Pending sync badge */
+        .pending-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-xs);
+            padding: 2px 8px;
+            background: var(--color-warning);
+            color: var(--se-grey-dark);
+            border-radius: 100px;
+            font-size: var(--font-size-sm);
+        }
+        .sync-icon {
+            width: 12px;
+            height: 12px;
+            border: 2px solid currentColor;
+            border-top-color: transparent;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: var(--space-xl);
+            color: var(--se-grey-medium);
+        }
+        .empty-state-icon {
+            width: 64px;
+            height: 64px;
+            background: var(--se-grey-light);
+            border-radius: 50%;
+            margin: 0 auto var(--space-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+        }
+
+        /* FAB */
+        .fab {
+            position: fixed;
+            bottom: 100px;
+            right: calc(50% - 195px);
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background: var(--se-red);
+            color: var(--se-white);
+            border: none;
+            font-size: 28px;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Bottom Nav */
+        .app-nav {
+            position: fixed;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            max-width: 430px;
+            background: var(--se-white);
+            border-top: 1px solid var(--se-grey-light);
+            display: flex;
+            justify-content: space-around;
+            padding: var(--space-sm) 0;
+        }
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: var(--space-xs);
+            color: var(--se-grey-medium);
+            font-size: var(--font-size-sm);
+            text-decoration: none;
+            padding: var(--space-sm);
+        }
+        .nav-item.active { color: var(--se-red); }
+        .nav-icon {
+            width: 24px;
+            height: 24px;
+            background: currentColor;
+            border-radius: var(--border-radius-sm);
+            opacity: 0.3;
+        }
+
+        /* Forms */
+        .form-group { margin-bottom: var(--space-md); }
+        .form-label {
+            display: block;
+            font-size: var(--font-size-sm);
+            font-weight: 500;
+            margin-bottom: var(--space-xs);
+            color: var(--se-grey-medium);
+        }
+        .form-input, .form-textarea {
+            width: 100%;
+            padding: var(--space-sm) var(--space-md);
+            border: 1px solid var(--se-grey-light);
+            border-radius: var(--border-radius);
+            font-size: var(--font-size-md);
+            font-family: var(--font-family);
+        }
+        .form-input:focus, .form-textarea:focus {
+            outline: none;
+            border-color: var(--se-red);
+        }
+        .form-textarea { min-height: 120px; resize: vertical; }
+        .char-count {
+            font-size: var(--font-size-sm);
+            color: var(--se-grey-medium);
+            text-align: right;
+            margin-top: var(--space-xs);
+        }
+
+        /* Photo Grid */
+        .photo-section { margin-bottom: var(--space-md); }
+        .photo-grid {
+            display: flex;
+            gap: var(--space-sm);
+            flex-wrap: wrap;
+        }
+        .photo-thumb {
+            width: 72px;
+            height: 72px;
+            background: var(--se-grey-light);
+            border-radius: var(--border-radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+        .photo-thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: var(--border-radius-sm);
+        }
+        .photo-thumb-remove {
+            position: absolute;
+            top: -6px;
+            right: -6px;
+            width: 20px;
+            height: 20px;
+            background: var(--color-error);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            font-size: 14px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .photo-thumb-add {
+            border: 2px dashed var(--se-grey-medium);
+            background: transparent;
+            cursor: pointer;
+            color: var(--se-grey-medium);
+            font-size: 24px;
+        }
+
+        /* Photo Actions */
+        .photo-actions {
+            display: flex;
+            gap: var(--space-sm);
+            margin-top: var(--space-sm);
+        }
+        .photo-action-btn {
+            flex: 1;
+            padding: var(--space-sm);
+            border: 1px solid var(--se-grey-light);
+            border-radius: var(--border-radius);
+            background: var(--se-white);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--space-sm);
+            font-size: var(--font-size-sm);
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--space-sm);
+            padding: var(--space-sm) var(--space-md);
+            border-radius: var(--border-radius);
+            font-size: var(--font-size-md);
+            font-weight: 500;
+            cursor: pointer;
+            border: none;
+        }
+        .btn-primary {
+            background: var(--se-red);
+            color: var(--se-white);
+        }
+        .btn-secondary {
+            background: var(--se-grey-light);
+            color: var(--se-grey-dark);
+        }
+        .btn-full { width: 100%; }
+        .btn-lg { padding: var(--space-md); font-size: var(--font-size-lg); }
+
+        /* Entry Detail View */
+        .entry-detail-header { margin-bottom: var(--space-md); }
+        .entry-detail-title {
+            font-size: var(--font-size-xl);
+            font-weight: 600;
+            margin-bottom: var(--space-sm);
+        }
+        .entry-detail-meta {
+            font-size: var(--font-size-sm);
+            color: var(--se-grey-medium);
+        }
+        .entry-detail-body {
+            margin-bottom: var(--space-lg);
+            line-height: 1.6;
+        }
+        .entry-detail-photos {
+            margin-bottom: var(--space-lg);
+        }
+        .detail-photo {
+            width: 100%;
+            height: 200px;
+            background: var(--se-grey-light);
+            border-radius: var(--border-radius);
+            margin-bottom: var(--space-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--se-grey-medium);
+        }
+
+        /* View containers */
+        .view { display: none; }
+        .view.active { display: block; }
+
+        /* Utilities */
+        .text-muted { color: var(--se-grey-medium); }
+        .text-sm { font-size: var(--font-size-sm); }
+        .mt-md { margin-top: var(--space-md); }
+        .mb-md { margin-bottom: var(--space-md); }
+    </style>
+</head>
+<body>
+    <!-- Mockup identification banner -->
+    <div class="mockup-banner">
+        MOCKUP: Operator Log - Log Entries MVP |
+        <a href="../feature-log-entries.md">View Feature Spec</a> |
+        Updated: 2025-01-13
+    </div>
+
+    <!-- View Switcher (for mockup navigation) -->
+    <div class="view-switcher">
+        <button class="view-btn active" onclick="showView('list')">List View</button>
+        <button class="view-btn" onclick="showView('create')">Create Entry</button>
+        <button class="view-btn" onclick="showView('detail')">Entry Detail</button>
+        <button class="view-btn" onclick="showView('offline')">Offline State</button>
+    </div>
+
+    <div class="app-shell">
+        <!-- ==========================================
+             VIEW 1: LOG ENTRY LIST
+             Reqs: 4.1, 4.2, 4.3, 4.4
+             ========================================== -->
+        <div class="view active" id="view-list">
+            <header class="app-header">
+                <div class="back-arrow"></div>
+                <!-- Req 4.1: Site view shows log entry list -->
+                <h1>Operator Log</h1>
+                <div class="header-icon"></div>
+            </header>
+
+            <main class="app-content">
+                <!-- Site context -->
+                <div class="site-header-card">
+                    <div class="site-name">Warehouse District Solar</div>
+                    <div class="site-meta">Melbourne, VIC | 2.4 MW | 12 Inverters</div>
+                </div>
+
+                <div class="section-header">
+                    <span class="section-title">Recent Entries</span>
+                    <span class="text-sm text-muted">23 total</span>
+                </div>
+
+                <!-- Req 4.1, 4.2: Log entry list with previews -->
+                <ul class="log-list">
+                    <!-- Entry with photo -->
+                    <li class="log-item" onclick="showView('detail')">
+                        <div class="log-item-header">
+                            <!-- Req 4.2: Shows title or truncated body -->
+                            <span class="log-item-title">Replaced MC4 connector on String 3</span>
+                        </div>
+                        <div class="log-item-body">
+                            Found corroded connector causing intermittent faults. Replaced and tested - now reading 398V.
+                        </div>
+                        <div class="log-item-footer">
+                            <!-- Req 4.2: Author and timestamp -->
+                            <span>Marcus T.</span>
+                            <!-- Req 3.3: Relative timestamp -->
+                            <span>2 hours ago</span>
+                            <!-- Req 4.2: Attachment indicator -->
+                            <span class="attachment-indicator">
+                                <span class="photo-icon"></span> 2
+                            </span>
+                        </div>
+                    </li>
+
+                    <!-- Entry without photo -->
+                    <li class="log-item">
+                        <div class="log-item-header">
+                            <span class="log-item-title">Communication restored on INV-07</span>
+                        </div>
+                        <div class="log-item-body">
+                            Inverter back online after cellular module reset. Monitoring for recurrence.
+                        </div>
+                        <div class="log-item-footer">
+                            <span>Sarah K.</span>
+                            <span>Yesterday</span>
+                        </div>
+                    </li>
+
+                    <!-- Pending sync entry -->
+                    <li class="log-item">
+                        <div class="log-item-header">
+                            <span class="log-item-title">Cleaned panels - Section B</span>
+                            <!-- Req 5.3: Pending sync badge -->
+                            <span class="pending-badge">
+                                <span class="sync-icon"></span>
+                                Syncing
+                            </span>
+                        </div>
+                        <div class="log-item-body">
+                            Heavy dust buildup from nearby construction. Full clean completed.
+                        </div>
+                        <div class="log-item-footer">
+                            <span>You</span>
+                            <span>Just now</span>
+                            <span class="attachment-indicator">
+                                <span class="photo-icon"></span> 3
+                            </span>
+                        </div>
+                    </li>
+
+                    <li class="log-item">
+                        <div class="log-item-header">
+                            <span class="log-item-title">Quarterly inspection completed</span>
+                        </div>
+                        <div class="log-item-body">
+                            All inverters operational. Minor bird nesting on rack 4 - scheduled for removal.
+                        </div>
+                        <div class="log-item-footer">
+                            <span>Marcus T.</span>
+                            <span>3 days ago</span>
+                            <span class="attachment-indicator">
+                                <span class="photo-icon"></span> 5
+                            </span>
+                        </div>
+                    </li>
+                </ul>
+
+                <!-- Req 4.3: Load more (infinite scroll simulation) -->
+                <div class="text-center mt-md">
+                    <button class="btn btn-secondary">Load more entries</button>
+                </div>
+            </main>
+
+            <!-- Req 1.1: Entry creation accessible within 2 taps -->
+            <button class="fab" onclick="showView('create')">+</button>
+
+            <nav class="app-nav">
+                <a href="#" class="nav-item">
+                    <div class="nav-icon"></div>
+                    <span>Sites</span>
+                </a>
+                <a href="#" class="nav-item active">
+                    <div class="nav-icon"></div>
+                    <span>Log</span>
+                </a>
+                <a href="#" class="nav-item">
+                    <div class="nav-icon"></div>
+                    <span>Alerts</span>
+                </a>
+                <a href="#" class="nav-item">
+                    <div class="nav-icon"></div>
+                    <span>More</span>
+                </a>
+            </nav>
+        </div>
+
+        <!-- ==========================================
+             VIEW 2: CREATE LOG ENTRY
+             Reqs: 1.1-1.6, 2.1-2.5
+             ========================================== -->
+        <div class="view" id="view-create">
+            <header class="app-header">
+                <div class="back-arrow" onclick="showView('list')"></div>
+                <h1>New Log Entry</h1>
+                <div></div>
+            </header>
+
+            <main class="app-content">
+                <!-- Req 1.6: Site context shown -->
+                <div class="site-header-card">
+                    <div class="site-name">Warehouse District Solar</div>
+                    <div class="site-meta">Entry will be added to this site's log</div>
+                </div>
+
+                <!-- Req 1.3: Optional title -->
+                <div class="form-group">
+                    <label class="form-label">Title (optional)</label>
+                    <input type="text" class="form-input" placeholder="Brief summary..." maxlength="200">
+                    <div class="char-count">0 / 200</div>
+                </div>
+
+                <!-- Req 1.2: Required body text -->
+                <div class="form-group">
+                    <label class="form-label">What happened? *</label>
+                    <textarea class="form-textarea" placeholder="Describe the issue, action taken, or observation..." maxlength="5000"></textarea>
+                    <div class="char-count">0 / 5,000</div>
+                </div>
+
+                <!-- Req 2.1-2.5: Photo attachments -->
+                <div class="photo-section">
+                    <label class="form-label">Photos (up to 5)</label>
+                    <div class="photo-grid">
+                        <!-- Existing photo thumbnail -->
+                        <div class="photo-thumb">
+                            <div style="font-size: 24px; color: var(--se-grey-medium);">IMG</div>
+                            <!-- Req 2.4: Remove photo before submit -->
+                            <button class="photo-thumb-remove">&times;</button>
+                        </div>
+                        <!-- Req 2.2, 2.3: Add photo options -->
+                        <div class="photo-thumb photo-thumb-add">+</div>
+                    </div>
+                    <div class="photo-actions">
+                        <!-- Req 2.2: Capture in-app -->
+                        <button class="photo-action-btn">
+                            <span>Camera</span>
+                        </button>
+                        <!-- Req 2.3: Select from gallery -->
+                        <button class="photo-action-btn">
+                            <span>Gallery</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Req 1.4, 1.5: Auto-captured (shown for context) -->
+                <div class="text-sm text-muted mb-md">
+                    Entry by <strong>You</strong> | Will be timestamped on save
+                </div>
+
+                <button class="btn btn-primary btn-full btn-lg">Save Entry</button>
+            </main>
+        </div>
+
+        <!-- ==========================================
+             VIEW 3: ENTRY DETAIL
+             Reqs: 3.1, 3.2, 3.3
+             ========================================== -->
+        <div class="view" id="view-detail">
+            <header class="app-header">
+                <div class="back-arrow" onclick="showView('list')"></div>
+                <h1>Entry Detail</h1>
+                <div class="header-icon"></div>
+            </header>
+
+            <main class="app-content">
+                <!-- Req 3.1: Full entry detail -->
+                <div class="entry-detail-header">
+                    <h2 class="entry-detail-title">Replaced MC4 connector on String 3</h2>
+                    <!-- Req 3.3: Relative timestamp + author -->
+                    <div class="entry-detail-meta">
+                        <strong>Marcus T.</strong> | 2 hours ago (14:32)
+                    </div>
+                </div>
+
+                <!-- Req 3.1: Full body -->
+                <div class="entry-detail-body">
+                    Found corroded connector causing intermittent faults on String 3. The connector had visible oxidation and was warm to touch.
+                    <br><br>
+                    Replaced with new MC4 connector and verified connection. String now reading 398V DC, consistent with other strings.
+                    <br><br>
+                    Recommend checking adjacent strings next visit as they share the same cable run.
+                </div>
+
+                <!-- Req 3.2: Photos viewable -->
+                <div class="entry-detail-photos">
+                    <label class="form-label">Attached Photos (2)</label>
+                    <!-- Req 3.2: Tap to expand -->
+                    <div class="detail-photo">Photo 1: Corroded connector</div>
+                    <div class="detail-photo">Photo 2: New connector installed</div>
+                    <div class="text-sm text-muted">Tap to view full size</div>
+                </div>
+
+                <div class="text-sm text-muted">
+                    Site: Warehouse District Solar<br>
+                    Created: 13 Jan 2025 at 14:32 AEDT
+                </div>
+            </main>
+
+            <nav class="app-nav">
+                <a href="#" class="nav-item">
+                    <div class="nav-icon"></div>
+                    <span>Sites</span>
+                </a>
+                <a href="#" class="nav-item active">
+                    <div class="nav-icon"></div>
+                    <span>Log</span>
+                </a>
+                <a href="#" class="nav-item">
+                    <div class="nav-icon"></div>
+                    <span>Alerts</span>
+                </a>
+                <a href="#" class="nav-item">
+                    <div class="nav-icon"></div>
+                    <span>More</span>
+                </a>
+            </nav>
+        </div>
+
+        <!-- ==========================================
+             VIEW 4: OFFLINE STATE
+             Reqs: 5.1, 5.2, 5.3, 5.4
+             ========================================== -->
+        <div class="view" id="view-offline">
+            <header class="app-header">
+                <div class="back-arrow"></div>
+                <h1>Operator Log</h1>
+                <div class="header-icon"></div>
+            </header>
+
+            <!-- Req 5.1, 5.3: Offline indicator -->
+            <div class="offline-banner">
+                <span class="offline-dot"></span>
+                You're offline. Entries will sync when connected.
+            </div>
+
+            <main class="app-content">
+                <div class="site-header-card">
+                    <div class="site-name">Warehouse District Solar</div>
+                    <div class="site-meta">Melbourne, VIC | 2.4 MW | 12 Inverters</div>
+                </div>
+
+                <div class="section-header">
+                    <span class="section-title">Recent Entries</span>
+                    <span class="text-sm text-muted">3 pending sync</span>
+                </div>
+
+                <ul class="log-list">
+                    <!-- Req 5.3: Pending entries marked -->
+                    <li class="log-item">
+                        <div class="log-item-header">
+                            <span class="log-item-title">Cleaned panels - Section B</span>
+                            <span class="pending-badge">Pending</span>
+                        </div>
+                        <div class="log-item-body">
+                            Heavy dust buildup from nearby construction.
+                        </div>
+                        <div class="log-item-footer">
+                            <span>You</span>
+                            <span>5 min ago</span>
+                            <span class="attachment-indicator">
+                                <span class="photo-icon"></span> 3
+                            </span>
+                        </div>
+                    </li>
+
+                    <li class="log-item">
+                        <div class="log-item-header">
+                            <span class="log-item-title">INV-04 fan noise observed</span>
+                            <span class="pending-badge">Pending</span>
+                        </div>
+                        <div class="log-item-body">
+                            Unusual whining sound from cooling fan. Flagged for follow-up.
+                        </div>
+                        <div class="log-item-footer">
+                            <span>You</span>
+                            <span>12 min ago</span>
+                        </div>
+                    </li>
+
+                    <!-- Synced entry (from cache) -->
+                    <li class="log-item">
+                        <div class="log-item-header">
+                            <span class="log-item-title">Quarterly inspection completed</span>
+                        </div>
+                        <div class="log-item-body">
+                            All inverters operational.
+                        </div>
+                        <div class="log-item-footer">
+                            <span>Marcus T.</span>
+                            <span>3 days ago</span>
+                        </div>
+                    </li>
+                </ul>
+
+                <!-- Req 5.4: Manual retry option -->
+                <div class="text-center mt-md">
+                    <button class="btn btn-secondary">Retry sync</button>
+                </div>
+            </main>
+
+            <!-- FAB still works offline (Req 5.1) -->
+            <button class="fab" onclick="showView('create')">+</button>
+
+            <nav class="app-nav">
+                <a href="#" class="nav-item">
+                    <div class="nav-icon"></div>
+                    <span>Sites</span>
+                </a>
+                <a href="#" class="nav-item active">
+                    <div class="nav-icon"></div>
+                    <span>Log</span>
+                </a>
+                <a href="#" class="nav-item">
+                    <div class="nav-icon"></div>
+                    <span>Alerts</span>
+                </a>
+                <a href="#" class="nav-item">
+                    <div class="nav-icon"></div>
+                    <span>More</span>
+                </a>
+            </nav>
+        </div>
+    </div>
+
+    <script>
+        // View switching
+        function showView(viewId) {
+            // Hide all views
+            document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+            // Show selected view
+            document.getElementById('view-' + viewId).classList.add('active');
+
+            // Update view switcher buttons
+            document.querySelectorAll('.view-btn').forEach(b => b.classList.remove('active'));
+            event.target.classList.add('active');
+        }
+    </script>
+</body>
+</html>
