@@ -124,13 +124,18 @@ This scope covers creating, viewing, and listing log entries with photo attachme
 
 ## Open Questions (Need Answers Before Dev)
 
-| # | Question | Who can answer? |
-|---|----------|-----------------|
-| **Q1** | What's the max storage per site/workspace for attachments? | Infra / Product |
-| **Q2** | Is there an existing offline sync pattern in the app, or net-new? | Engineering |
-| **Q3** | What's the data retention policy for log entries? Forever? | Legal / Product |
-| **Q4** | Will this be mobile-only MVP or also web? | Product |
-| **Q5** | Is there an existing image upload service or do we build new? | Engineering |
+| # | Question | Who can answer? | Source |
+|---|----------|-----------------|--------|
+| **Q1** | What's the max storage per site/workspace for attachments? | Infra / Product | Scoping |
+| **Q2** | Is there an existing offline sync pattern in the app, or net-new? | Engineering | Scoping |
+| **Q3** | What's the data retention policy for log entries? Forever? | Legal / Product | Scoping |
+| **Q4** | Will this be mobile-only MVP or also web? | Product | Scoping |
+| **Q5** | Is there an existing image upload service or do we build new? | Engineering | Scoping |
+| **Q6** | Should entry types be required, optional, or inferred post-creation? | Product | Jacques |
+| **Q7** | Is cross-workspace visibility same as customer-visibility, or separate permission model? | Product | Jacques |
+| **Q8** | Video support: max file size/duration? Storage cost implications? | Infra / Product | Jacques |
+| **Q9** | Is maintenance scheduling (battery check-up every 6mo) Operator Log or separate module? | Product | Jacques |
+| **Q10** | Go app: in scope for ONE Pro, or separate product decision? | Product | Jacques |
 
 ---
 
@@ -153,8 +158,15 @@ MVP is deliberately minimal: text + photos + offline. That's it. Prove adoption 
 
 ---
 
+## Research & Feedback
+
+- [2025-01-13 Jacques (Field Tech Manager)](./_research/2025-01-13-jacques-feedback.md) — Validates mobile, challenges deferred entry types, expands attachment scope
+
+---
+
 ## Audit Trail
 
 | Date | Event | Notes |
 |------|-------|-------|
 | 2025-01-13 | Initial scoping | @Scoper pass. Informed by @Critic and @User_Proxy (Field Technician) feedback. |
+| 2025-01-13 | Jacques feedback | Added Q6-Q10. Entry types and video support may need reconsideration. |
