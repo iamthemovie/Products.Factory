@@ -88,8 +88,8 @@ Comms issues are the "big unknown" category:
 
 ### Remaining unknowns
 - How to distinguish comms loss (network) from operational issues?
-- What digest frequency makes sense? (Daily? Per-shift?)
-- How do auto-closed instances surface in repeat pattern analysis?
+- What's in the built-in rule library? (Need to define starter pack)
+- How does personalization work long-term? (per-user preferences)
 
 ### Scale considerations
 - Estates range from a few sites to thousands
@@ -99,15 +99,29 @@ Comms issues are the "big unknown" category:
 
 ## Emerging Solution Shape
 
-### Rule Library (curated starting point)
-- Pre-built rules for common scenarios
+### Rule Library (two-tier)
+
+**Built-in Library**
+- Pre-built rules for common scenarios (inverter offline, underperformance, comms loss, etc.)
+- Curated by product team, mapped to industry standards
 - User enables/disables, adjusts thresholds
-- Doesn't require building from scratch
+
+**User-Created Rules**
+- Same engine as built-in rules
+- Users can create and save their own rules
+- Shared within their organization or kept personal
 
 ### Guided Rule Builder (accessible layer)
 - Wizard-style: "Alert me when [equipment type] has [condition] for [duration]"
 - Hides query complexity, translates to underlying engine
 - Power users can "eject" to advanced mode
+
+### Rule Information Page
+- Shows rule definition and current status
+- **Repeat pattern visibility:** "This rule has fired 47 times in the last 30 days"
+- Historical trend of activations
+- Which assets/sites are triggering most frequently
+- Auto-closed vs. manually closed breakdown
 
 ### Impact Preview (anti-storm mechanism)
 - Before activating: *"This rule would have fired 847 times across your estate in the last 30 days"*
@@ -117,7 +131,18 @@ Comms issues are the "big unknown" category:
 ### Severity & Grouping
 - Rules have severity levels (critical / warning / info)
 - Related alerts roll up to incidents (not per-asset noise)
-- Digest options vs. real-time per severity
+
+### Digest System
+
+**Two digest types:**
+| Digest | Audience | Content |
+|--------|----------|---------|
+| **Portfolio Digest** | Asset owners, executives | High-level health, top issues, trends |
+| **Site Digest** | O&M, engineers | Site-specific alerts, asset status |
+
+**Cadence control:**
+- User selects frequency (daily, weekly, per-shift)
+- Future: personalization per user (which rules, which sites, what time)
 
 ---
 
