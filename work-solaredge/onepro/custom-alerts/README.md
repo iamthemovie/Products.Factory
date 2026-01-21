@@ -43,19 +43,53 @@ What does an asset owner actually care about? Five categories:
 
 ---
 
+## Persona-Based Priorities
+
+All five categories matter, but priority varies by role:
+
+| Persona | Primary Focus | View Level |
+|---------|---------------|------------|
+| **Asset Owner** | Generation losses = money | Portfolio |
+| **O&M Provider** | Performance guarantees, dispatch | Site/Asset |
+| **Engineer** | Troubleshooting, root cause | Asset |
+| **Executive** | Portfolio health, trends | Portfolio |
+
+**Key insight:** Portfolio-level views for oversight, asset-level for hands-on engineers.
+
+### Communication Loss — Special Case
+
+Comms issues are the "big unknown" category:
+- Is it cellular/network infrastructure? (not an operational issue)
+- Or actual equipment failure? (needs intervention)
+- Need to distinguish between connectivity problems vs. real faults
+- Avoid false alarms from transient network blips
+
+---
+
+## Alarm Instance Lifecycle
+
+### Existing Pattern (Hark)
+- Rules open **alarm instances** of a type — this works well
+- Instances track state: open → acknowledged → closed
+
+### Auto-Closure Requirements
+- **Needed:** Auto-close transient issues to reduce human burden
+- **But:** Preserve history for repeat indication analysis
+- Don't lose visibility into patterns just because issues self-resolved
+
+### Notification Channels
+- **Email notifications** — required
+- **Digest mode** — important for avoiding alert fatigue
+- **Other integrations** (Slack, SMS, ticketing) — future, not priority now
+
+---
+
 ## Open Questions
 
-### User mental model
-- Which categories matter most to Prologis-type customers?
-- Are there rule types missing? (compliance, safety, contractual?)
-- Do they think in **individual assets** or **portfolio health**?
-
-### Desired outcomes
-When an alert fires — what do they want to *do*?
-- Just know?
-- Dispatch someone?
-- Generate a report?
-- Notify a third party?
+### Remaining unknowns
+- How to distinguish comms loss (network) from operational issues?
+- What digest frequency makes sense? (Daily? Per-shift?)
+- How do auto-closed instances surface in repeat pattern analysis?
 
 ### Scale considerations
 - Estates range from a few sites to thousands
